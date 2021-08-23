@@ -40,6 +40,14 @@
     user-select: none;
 }
 
+.FidumLogo:hover {
+    background-color: rgba(65, 105, 225, 0.95);
+}
+
+#menuBarLeyend {
+    user-select: none;
+}
+
 .menu {
     padding: 5px 10px;
     font-size: 1.1em;
@@ -54,6 +62,7 @@
 #output {
     grid-area: output;
     padding: 2px 10px;
+    overflow: auto;
 }
 
 #spreadsheet {
