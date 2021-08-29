@@ -3,7 +3,6 @@
 
 //kMeans algorithm
 // Initial parameters
-let dataset = [3,4,5,6,7,10,11,12]
 const MAX_ITERATIONS = 50;
 
 function randomBetween(min, max) {
@@ -212,11 +211,12 @@ function kmeans(dataset, k, useNaiveSharding = true) {
 
 
 // Execute algorithm
-let dataKm = [[1,1,1],
-[1,2,1],
-[-1,-1,-1],
-[-1,-1,-1.5],
-[-1,-1,-1.5]]
-//let result = kmeans(dataset, k)
-
+// let dataKm = [
+//     [1,1,1],
+//     [1,2,1],
+//     [-1,-1,-1],
+//     [-1,-1,-1.5],
+//     [-1,-1,-1.5]]
+// let result = kmeans(dataKm, 3)
+    
 // export default kmeans;

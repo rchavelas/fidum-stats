@@ -1,3 +1,4 @@
+/* Grid and main window styling */
 *{
     box-sizing: border-box;
     margin: 0;
@@ -20,6 +21,7 @@
     height: 100vh;
 }
 
+/* Menu Bar styling */
 #menuBar {
     grid-area: menuBar;
     background-color: #f0f0f0;
@@ -53,23 +55,40 @@
     font-size: 1.1em;
 }
 
+
+/* Input modal window styling */
 #inputOptions {
     grid-area: inputOptions;
     border-right: solid 2px rgba(0,0,0,0.2) ;
     padding: 2px 10px;
     background-color: #f0f0f07e;
 }
+
+fieldset input, fieldset select, fieldset button {
+    margin-top: 5px;
+}
+
+/* Output region styling */
 #output {
     grid-area: output;
     padding: 2px 10px;
     overflow: auto;
 }
 
+.resultOutputTitle {
+    margin-top: 5px;
+    color:rgba(65, 105, 225, 0.95);
+    font-weight: 700;
+}
+
+/* Spreadsheet styling */
+
 #spreadsheet {
     grid-area: spreadsheet;
     overflow: hidden;
 }
 
+/* Status bar  styling */
 #statusBar {
     grid-area: statusBar;
     display:flex;

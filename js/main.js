@@ -42,14 +42,58 @@ const cleanHandosontableSourceData = function(arrOfArr){
 // FUNCTION to chage the order of the arr of Arr from rowwise to columnwise
 
 // B) Event Listeners
-
+let outputDocumentID = document.getElementById("output")
 // Print output data to output 
 // TODO... summarize function based on type of data
 document.getElementById("getHotData").addEventListener("click",function(){
+    // Log operation
+    console.log("Printing data")
+    // Get data from Handsontable
     let hotDataArray = hot.getSourceDataArray()
-    let prettyPrintArray = JSON.stringify(cleanHandosontableSourceData(hotDataArray),null,2) 
+    // Print title and annotations in output region
     let p = document.createElement("p");
-    p.innerHTML = prettyPrintArray
-    document.getElementById("output").appendChild(p)
-    console.log(prettyPrintArray)
+    p.innerHTML = `Printing data`
+    p.classList.add("resultOutputTitle")
+    outputDocumentID.appendChild(p)  
+    // Prepare data to print
+    let prettyPrintArray = JSON.stringify(cleanHandosontableSourceData(hotDataArray),null,2) 
+    let p2 = document.createElement("p");
+    p2.innerHTML = prettyPrintArray
+    outputDocumentID.appendChild(p2)
+    // scroll to bottom
+    p2.scrollIntoView({behaviour:"smooth"});
 })
+
+//Run kmeans algorithm from kMeans.js and print it to Output
+document.getElementById("computeKmeans").addEventListener("click",function(){
+    // Log operation
+    console.log("Runing kmeans")
+    // Get input options
+    let useNaiveShardingKmeans = false;
+    if( document.getElementById("kMeansInitializacion").value === "kMeansNaiveShardingInit"){
+        useNaiveShardingKmeans = true
+        console.log("using naive sharding")
+    }
+    // Get data from Handsontable
+    let dataKm = cleanHandosontableSourceData(hot.getSourceDataArray())
+    // Clean and validate data for kmeans algorithm
+    // PENDING
+    // Run kmeans algorithm
+    let k = Number(document.getElementById("kMeansClusters").value)
+    let result = kmeans(dataKm, k, useNaiveShardingKmeans)
+    // Print title and annotations in output region
+    let p = document.createElement("p");
+    p.innerHTML = `Kmeans clustering with ${k} clusters`
+    p.classList.add("resultOutputTitle")
+    outputDocumentID.appendChild(p)  
+    // Print result to output region
+    result.clusters.forEach(cluster => {
+        let clusterInfo = JSON.stringify(cluster.centroid,null,2) 
+        let p = document.createElement("p");
+        p.innerHTML = clusterInfo
+        outputDocumentID.appendChild(p)
+        // scroll to bottom
+        p.scrollIntoView({behaviour:"smooth"});
+    });
+})
+

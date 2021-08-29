@@ -28,13 +28,34 @@
         <div id="menuBar">
             <div id="menuBarOptions"> 
                 <div class="FidumLogo menu" onClick="window.location.reload()">Fidum</div>
+                <div class="menu">Descriptive statistics</div> 
                 <div class="menu">Classification</div> 
             </div>
             <div id="menuBarLeyend" class="menu">the online statistical software</div>
         </div>
         <!--Input Options-->
-        <div id="inputOptions">InputOptions <br>
+        <div id="inputOptions">Input options
+            <!--Descriptive statistics menu-->
+            <fieldset>
+            <legend>Descriptive statistics</legend>
             <button id="getHotData">Get Data</button>
+            </fieldset>
+            <!--Kmeans menu-->
+            <fieldset>
+            <legend>K means clustering</legend>
+
+            <label for="kMeansInitializacion">Initialization Method:</label>
+            <select id="kMeansInitializacion" name="kMeansInitializacion">
+                <option value="kMeansRandomInit">Random point</option>
+                <option value="kMeansNaiveShardingInit">Naive Sharding</option>
+            </select><br>
+
+            <label for="kMeansClusters">Number of clusters:</label>
+            <input type="number" id="kMeansClusters" name="kMeansClusters"
+                min="2" max="10" size=3><br>
+
+            <button id="computeKmeans">Run</button>
+            </fieldset>
         </div>
         <!--Output-->
         <div id="output">Output</div>
