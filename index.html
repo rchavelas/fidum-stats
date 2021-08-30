@@ -22,41 +22,56 @@
 </head>
 
 <body>
+    <!-- body overlay (to blackout when menus open) -->
+    <div class="body-blackout"></div>
 
     <div id = "container">
         <!--Menu Bar-->
         <div id="menuBar">
             <div id="menuBarOptions"> 
-                <div class="FidumLogo menu" onClick="window.location.reload()">Fidum</div>
-                <div class="menu">Descriptive statistics</div> 
-                <div class="menu">Classification</div> 
+                <div class="FidumLogo menuButton">Fidum</div>
+                <div class="menuButton popup-trigger navButton" 
+                    data-popup-trigger="descriptiveStatsRoutine">
+                    Descriptive statistics
+                </div> 
+                <div class="menuButton popup-trigger navButton" 
+                    data-popup-trigger="kMeansRoutine">
+                    Classification (K means)
+                </div> 
             </div>
-            <div id="menuBarLeyend" class="menu">the online statistical software</div>
+            <div id="menuBarLeyend" class="menuButton">the online statistical software</div>
         </div>
-        <!--Input Options-->
-        <div id="inputOptions">Input options
+
+        <!--Log-->
+        <div id="log">Log</div>
+        <!-- Modals-->
+            <!--descriptiveStatsRoutine-->
+            <div class="popup-modal" data-popup-modal="descriptiveStatsRoutine">
             <!--Descriptive statistics menu-->
-            <fieldset>
-            <legend>Descriptive statistics</legend>
-            <button id="getHotData">Get Data</button>
-            </fieldset>
-            <!--Kmeans menu-->
-            <fieldset>
-            <legend>K means clustering</legend>
-
-            <label for="kMeansInitializacion">Initialization Method:</label>
-            <select id="kMeansInitializacion" name="kMeansInitializacion">
-                <option value="kMeansRandomInit">Random point</option>
-                <option value="kMeansNaiveShardingInit">Naive Sharding</option>
-            </select><br>
-
-            <label for="kMeansClusters">Number of clusters:</label>
-            <input type="number" id="kMeansClusters" name="kMeansClusters"
-                min="2" max="10" size=3><br>
-
-            <button id="computeKmeans">Run</button>
-            </fieldset>
-        </div>
+                <fieldset>
+                    <legend>Descriptive statistics</legend>
+                    <button id="getHotData" class="popup-modal__run">Get Data</button>
+                    <button class="popup-modal__close">Close</button>
+                </fieldset>
+            </div>  
+            <!--kMeansRoutine-->
+            <div class="popup-modal" data-popup-modal="kMeansRoutine">
+                <fieldset>
+                    <legend>K means clustering</legend>
+        
+                    <label for="kMeansInitializacion">Initialization Method:</label>
+                    <select id="kMeansInitializacion" name="kMeansInitializacion">
+                        <option value="kMeansRandomInit">Random point</option>
+                        <option value="kMeansNaiveShardingInit">Naive Sharding</option>
+                    </select><br>
+        
+                    <label for="kMeansClusters">Number of clusters:</label>
+                    <input type="number" id="kMeansClusters" name="kMeansClusters"
+                        min="2" max="10" size=3><br>
+                    <button id="computeKmeans" class="popup-modal__run">Run</button>
+                    <button class="popup-modal__close">Close</button>
+                </fieldset>
+            </div>                                                                          
         <!--Output-->
         <div id="output">Output</div>
         <!--Handsontable holder-->
