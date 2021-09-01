@@ -1,7 +1,7 @@
 // Reference
 // https://medium.com/geekculture/implementing-k-means-clustering-from-scratch-in-javascript-13d71fbcb31e
 
-//kMeans algorithm
+// kMeans algorithm
 // Initial parameters
 const MAX_ITERATIONS = 50;
 

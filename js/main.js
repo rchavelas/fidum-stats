@@ -60,6 +60,11 @@ document.getElementById("getHotData").addEventListener("click",function(){
     let p2 = document.createElement("p");
     p2.innerHTML = prettyPrintArray
     outputDocumentID.appendChild(p2)
+    // Run descriptiveStatistics routine
+    let desctStatsObjOutput = JSON.stringify(descriptiveStatistics(),null,2)
+    let p3 = document.createElement("p");
+    p3.innerHTML = desctStatsObjOutput
+    outputDocumentID.appendChild(p3)
     // scroll to bottom
     p2.scrollIntoView({behaviour:"smooth"});
 })
