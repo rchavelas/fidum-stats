@@ -22,15 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
         p.classList.add("resultOutputTitle")
         outputDocumentID.appendChild(p)  
         // Prepare data to print
-        let prettyPrintArray = JSON.stringify(cleanHandosontableSourceData(hotDataArray,hotHeadersArray),null,2) 
+        let cleanHotData = cleanHandosontableSourceData(hotDataArray,hotHeadersArray)
+        let cleanHotDataColwise = columnWiseHandsontableCleanData(cleanHotData)
+        let prettyPrintArray = JSON.stringify(cleanHotDataColwise,null,2)  
         let p2 = document.createElement("p");
         p2.innerHTML = prettyPrintArray
-        outputDocumentID.appendChild(p2)
+        //outputDocumentID.appendChild(p2)
         // Run descriptiveStatistics routine
-        //let desctStatsObjOutput = JSON.stringify(descriptiveStatistics(),null,2)
-        //let p3 = document.createElement("p");
-        //p3.innerHTML = desctStatsObjOutput
-        // outputDocumentID.appendChild(p3)
+        let selectedCols = ["s_length", "s_width","p_length","p_width"]
+        let selectedStats = ["mean", "Variance"]
+        let desctStatsObjOutput = JSON.stringify(descriptiveStatistics(cleanHotDataColwise,selectedCols,selectedStats),null,2)
+        let p3 = document.createElement("p");
+        p3.innerHTML = desctStatsObjOutput
+        outputDocumentID.appendChild(p3)
         // scroll to bottom
         p2.scrollIntoView({behaviour:"smooth"});
     });

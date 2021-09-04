@@ -12,7 +12,7 @@ Although there exist several other tools, the goal of Fidum is to be a simple (f
 
 ## Why is there a compass in the title?
 
-I like to think that you should try your best to guide your decisions with data as much as you can, statistics is kind of a compass (:compass:) in the (:world_map:) world of data. Without it you may get to your goal, with it you can be confident that eventually you'll get there... Ok, maybe it is just a nice icon to use on the page    
+I like to think that you should try your best to guide your decisions with data, statistics is kind of a compass (:compass:) in the (:world_map:) world of data. Without it you may get to your goal, with it you can be confident that eventually you'll get there... Ok, maybe it is just a nice icon to use on the page    
 
 ## Why don't you add more functionalities?
 
