@@ -10,100 +10,145 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TD0CBHMT32"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TD0CBHMT32');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-TD0CBHMT32');
     </script>
     
     <!--STYLESHEET-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css"/>
-
+    
     <!--JS scripts-->
     <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
     <script src="js/kMeans.js"></script>
     <script src="js/descStat.js"></script>
-
+    
     <!--FONTS-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> 
-
+    
 </head>
 
 <body>
     <!-- body overlay (to blackout when menus open) -->
     <div class="body-blackout"></div>
-
+    
     <div id = "container">
         <!--Menu Bar-->
         <div id="menuBar">
             <div id="menuBarOptions"> 
-                <div class="FidumLogo menuButton">Fidum.io</div>
+                <div class="FidumLogo menuButton" onClick="document.location.reload(true)">Fidum.io</div>
+                <!--PrintData-->
+                <div class="menuButton navButton" id="printDataButton">
+                Print Data
+                </div> 
                 <!--Basic statistics-->
                 <div class="menuButton popup-trigger navButton" 
-                    data-popup-trigger="descriptiveStatsRoutine">
-                    Descriptive statistics
+                data-popup-trigger="descriptiveStatsRoutine">
+                Descriptive statistics
                 </div> 
-                <!--Classification-->
-                <div class="menuButton popup-trigger navButton" 
-                    data-popup-trigger="kMeansRoutine">
-                    Classification (K means)
-                </div>
-                <!--Visualization menu-->
-                <div class="menuButton navButton"" hidden>
-                    Visualization
-                </div> 
-                <!--Data processing-->
-                <div class="menuButton navButton"" hidden>
-                    Duplicated items
-                </div> 
-            </div>
-            <div id="menuBarLeyend" class="menuButton">the online statistical software</div>
+            <!--Classification-->
+            <div class="menuButton popup-trigger navButton" 
+            data-popup-trigger="kMeansRoutine">
+            Classification (K means)
         </div>
+        <!--Visualization menu-->
+        <div class="menuButton navButton"" hidden>
+            Visualization
+        </div> 
+        <!--Data processing-->
+        <div class="menuButton navButton"" hidden>
+            Duplicated items
+        </div> 
+    </div>
+    <div id="menuBarLeyend" class="menuButton">the online statistical software</div>
+</div>
 
-        <!--Log-->
-        <div id="log">Log</div>
-        <!-- Modals-->
-            <!--descriptiveStatsRoutine-->
-            <div class="popup-modal" data-popup-modal="descriptiveStatsRoutine">
-            <!--Descriptive statistics menu-->
-                <fieldset>
-                    <legend>Descriptive statistics</legend>
-                    <button id="getHotData" class="popup-modal__run">Get Data</button>
-                    <button class="popup-modal__close">Close</button>
-                </fieldset>
-            </div>  
-            <!--kMeansRoutine-->
-            <div class="popup-modal" data-popup-modal="kMeansRoutine">
-                <fieldset>
-                    <legend>K means clustering</legend>
-        
-                    <label for="kMeansInitializacion">Initialization Method:</label>
-                    <select id="kMeansInitializacion" name="kMeansInitializacion">
-                        <option value="kMeansRandomInit">Random point</option>
-                        <option value="kMeansNaiveShardingInit">Naive Sharding</option>
-                    </select><br>
-        
-                    <label for="kMeansClusters">Number of clusters:</label>
-                    <input type="number" id="kMeansClusters" name="kMeansClusters"
-                        min="2" max="10" size=3><br>
-                    <button id="computeKmeans" class="popup-modal__run">Run</button>
-                    <button class="popup-modal__close">Close</button>
-                </fieldset>
-            </div>                                                                          
-        <!--Output-->
-        <div id="output">Output (version preprod 0.1)</div>
-        <!--Handsontable holder-->
-        <div id="spreadsheet"></div>
-        <!--Status Bar-->
-        <div id="statusBar">
-            <div id="statusBarText"> Status </div>
-            <div id="contact"> find me @ <a href="https://github.com/rchavelas">rchavelas</a></div>
+<!--Log-->
+<div id="log">Log</div>
+<!-- Modals-->
+<!--descriptiveStatsRoutine-->
+<div class="popup-modal" data-popup-modal="descriptiveStatsRoutine">
+    <!--Descriptive statistics menu-->
+    <h1>Descriptive statistics</h1>
+    <fieldset>
+        <legend>Input options</legend>
+        <!--Flexbox container for column selection and input stats-->
+        <div class="popup-modal_flexTwoSidedColSelection">
+            <!--Select columns field-->
+            <div class="popup-modal_flexTwoSidedColSelectionColSide">
+                <label for="selectedColumnsDescStats">Select columns (+ ctr):</label> <br>
+                <select name="selectedColumnsDescStats" id="selectedColumnsDescStats" 
+                class="popup-modal_multipleColSelection" multiple size="8">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select> 
+        </div>
+        <!--Select stats field-->
+        <div class="popup-modal_flexTwoSidedColSelectionOptionsSide">
+            <legend>Selected statistics:</legend>
+            <!--Mean-->
+            <div>
+                <input type="checkbox" id="meanDescStats" name="descStatsCheckbox" value="mean">
+                <label for="meanDescStats">Mean</label>
+            </div>
+            <!--Variance-->
+            <div>
+                <input type="checkbox" id="varDescStats" name="descStatsCheckbox" value="var">
+                <label for="varDescStats">Variance (sample)</label>
+            </div>
+            <!--SD-->
+            <div>
+                <input type="checkbox" id="sdDescStats" name="descStatsCheckbox" value="sd">
+                <label for="sdDescStats">Standard deviation (sample)</label>
+            </div>
+            <!--n obs-->
+            <div>
+                <input type="checkbox" id="nDescStats" name="descStatsCheckbox" value="n">
+                <label for="nDescStats">n obs</label>
+            </div>            
+            
         </div>
     </div>
+    <!--Run or cancel-->
+    <button id="getHotData" class="popup-modal__run">Run</button>
+    <button class="popup-modal__close">Close</button>
+</fieldset>
+</div>  
+<!--kMeansRoutine-->
+<div class="popup-modal" data-popup-modal="kMeansRoutine">
+    <fieldset>
+        <legend>K means clustering</legend>
+        
+        <label for="kMeansInitializacion">Initialization Method:</label>
+        <select id="kMeansInitializacion" name="kMeansInitializacion">
+            <option value="kMeansRandomInit">Random point</option>
+            <option value="kMeansNaiveShardingInit">Naive Sharding</option>
+        </select><br>
+        
+        <label for="kMeansClusters">Number of clusters:</label>
+        <input type="number" id="kMeansClusters" name="kMeansClusters"
+        min="2" max="10" size=3><br>
+        <button id="computeKmeans" class="popup-modal__run">Run</button>
+        <button class="popup-modal__close">Close</button>
+    </fieldset>
+</div>                                                                          
+<!--Output-->
+<div id="output">Output (version preprod 0.1)</div>
+<!--Handsontable holder-->
+<div id="spreadsheet"></div>
+<!--Status Bar-->
+<div id="statusBar">
+    <div id="statusBarText"> Status </div>
+    <div id="contact"> find me @ <a href="https://github.com/rchavelas">rchavelas</a></div>
+</div>
+</div>
 </body>
 
 <!--JS-->

@@ -150,8 +150,8 @@ const inputTestData = function(dataset){
     }
 }
 inputTestData(testData3)
-updateHOTColHeaders("A","s_length")
-updateHOTColHeaders("B","s_width")
-updateHOTColHeaders("C","p_length")
-updateHOTColHeaders("D","p_width")
-updateHOTColHeaders("E","class")
+// updateHOTColHeaders("A","s_length")
+// updateHOTColHeaders("B","s_width")
+// updateHOTColHeaders("C","p_length")
+// updateHOTColHeaders("D","p_width")
+// updateHOTColHeaders("E","class")

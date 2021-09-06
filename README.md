@@ -1,6 +1,6 @@
 # Fidum Stats :compass:
 
-Fidum is a (*full*) online statistical software that tries to simplify and **democratize** simple or complex tools, algorithms and techniques. You can try the last version [here](https://fidum.io) which includes some common statistical tools such as:
+Fidum is a (*full*) online statistical software that tries to simplify and **democratize** simple or complex tools, algorithms and techniques. You can try the lastest version [here](https://fidum.io) which includes some common statistical tools such as:
 
 - Descriptive statistics
 - Visualization
