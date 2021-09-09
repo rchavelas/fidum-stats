@@ -18,40 +18,32 @@ const roundFn = function(number, decimalPlaces){
 }
 // A.2) Convert json to html table
 // Thks to https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm    
-const tableFromJson = function(jsonObj) {
-        // Extract value from table header. 
-        let col = [];
-        for (let i = 0; i < jsonObj.length; i++) {
-            for (let key in jsonObj[i]) {
-                if (col.indexOf(key) === -1) {
-                    col.push(key);
-                }
-            }
-        }
+const tableFromJson = function(arrObj) {
+    // testData
+    // var arrObj = [
+    //     { colName: "A", mean: 4.913, variance: 0.158 },
+    //     { colName: "B", mean: 3.347, variance: 0.118 },
+    //     { colName: "C", mean: 1.42, variance: 0.022 }]
+    // tableFromJson(arrObj)
+    
+    // Create initial html
+    var html = "<table>"
+    
+    // Create table and table header from key (tr/th)
+    html += "<tr>"
+    Object.keys(arrObj[0]).forEach(key => {html += "<th>" + key + "</th>"})
+    html += "</tr>"
+    
+    // Create contents of table (tr/td)
+    arrObj.forEach(obj => {
+        html += "<tr>";
+        Object.values(obj).forEach(val => {html += "<td>" + val + "</td>"})
+        html += "</tr>"
+    })
 
-        // Create a table.
-        let table = document.createElement("table");
-
-        // Create table header row using the extracted headers above.
-        let tr = table.insertRow(-1);                   // table row.
-
-        for (let i = 0; i < col.length; i++) {
-            let th = document.createElement("th");      // table header.
-            th.innerHTML = col[i];
-            tr.appendChild(th);
-        }
-
-        // add json data to the table as rows.
-        for (let i = 0; i < jsonObj.length; i++) {
-            tr = table.insertRow(-1);
-            for (let j = 0; j < col.length; j++) {
-                let tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = jsonObj[i][col[j]];
-            }
-        }
-
-        // Now, add the newly created table with json data, to a container.
-  return table
+    // End table
+    html += "</table>"
+    return html  
 }
 
 // B) Event Listeners
@@ -71,13 +63,13 @@ document.getElementById("printDataButton").addEventListener("click",function(){
     // Prepare data to print
     let cleanHotData = cleanHandosontableSourceData(hotDataArray,hotHeadersArray)
     let cleanHotDataColwise = columnWiseHandsontableCleanData(cleanHotData)
-    let prettyPrintArray = JSON.stringify(cleanHotDataColwise,null,2)  
     let p2 = document.createElement("p");
-    p2.innerHTML = prettyPrintArray
+    p2.innerHTML =  tableFromJson(cleanHotDataColwise);
     outputDocumentID.appendChild(p2)
     p2.scrollIntoView({behaviour:"smooth"});
 })
 
+// Descriptive statistics Routine
 document.getElementById("getHotData").addEventListener("click",function(){
     // Log operation
     console.log("Printing descriptive statistics")
@@ -93,7 +85,7 @@ document.getElementById("getHotData").addEventListener("click",function(){
     let cleanHotData = cleanHandosontableSourceData(hotDataArray,hotHeadersArray)
     let cleanHotDataColwise = columnWiseHandsontableCleanData(cleanHotData)
     // Get selected columns
-    var selectedDescStatCols = document.getElementById("selectedColumnsDescStats")
+    let selectedDescStatCols = document.getElementById("selectedColumnsDescStats")
     let selectedCols = [...selectedDescStatCols.selectedOptions].map(option => option.value)
     // Get selected stats
     let descStatsCheckboxObj = document.querySelectorAll('input[name="descStatsCheckbox"]:checked')
@@ -103,15 +95,11 @@ document.getElementById("getHotData").addEventListener("click",function(){
     let desctStatsObjOutput = descriptiveStatistics(cleanHotDataColwise,selectedCols,selectedStats)
     // Append to output 
     let p2 = document.createElement("p");
-    console.log(tableFromJson(desctStatsObjOutput))
-    p2.innerHTML = ""
-    p2.appendChild(tableFromJson(desctStatsObjOutput))
+    p2.innerHTML = tableFromJson(desctStatsObjOutput);
     outputDocumentID.appendChild(p2)
     // scroll to bottom 
     p2.scrollIntoView({behaviour:"smooth"});
 });
-
-// Descriptive statistics Routine
 
 //Run kmeans algorithm from kMeans.js and print it to Output
 document.getElementById("computeKmeans").addEventListener("click",function(){

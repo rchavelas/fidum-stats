@@ -148,12 +148,13 @@ fieldset input, fieldset select, fieldset button {
 #output {
     background-color: #f0f0f07e;
     grid-area: output;
-    padding: 2px 10px;
+    padding: 10px 15px;
     overflow: auto;
 }
 
 .resultOutputTitle {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     color:rgba(65, 105, 225, 0.95);
     font-weight: 700;
 }

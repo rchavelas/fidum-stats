@@ -44,24 +44,28 @@
                 <div class="FidumLogo menuButton" onClick="document.location.reload(true)">Fidum.io</div>
                 <!--PrintData-->
                 <div class="menuButton navButton" id="printDataButton">
-                Print Data
+                    Print Data
                 </div> 
                 <!--Basic statistics-->
                 <div class="menuButton popup-trigger navButton" 
                 data-popup-trigger="descriptiveStatsRoutine">
                 Descriptive statistics
-                </div> 
+            </div> 
+            <!--Hypothesis testing menu-->
+            <div class="menuButton navButton">
+                Hypothesis testing
+            </div>
+            <!--Visualization menu-->
+            <div class="menuButton navButton" hidden>
+                Visualization
+            </div> 
             <!--Classification-->
             <div class="menuButton popup-trigger navButton" 
             data-popup-trigger="kMeansRoutine">
             Classification (K means)
         </div>
-        <!--Visualization menu-->
-        <div class="menuButton navButton"" hidden>
-            Visualization
-        </div> 
         <!--Data processing-->
-        <div class="menuButton navButton"" hidden>
+        <div class="menuButton navButton" hidden>
             Duplicated items
         </div> 
     </div>
@@ -140,7 +144,7 @@
     </fieldset>
 </div>                                                                          
 <!--Output-->
-<div id="output">Output (version preprod 0.1)</div>
+<div id="output"></div>
 <!--Handsontable holder-->
 <div id="spreadsheet"></div>
 <!--Status Bar-->
