@@ -27,17 +27,17 @@ const tableFromJson = function(arrObj) {
     // tableFromJson(arrObj)
     
     // Create initial html
-    var html = "<table>"
+    var html = '<table class="outputTable">'
     
     // Create table and table header from key (tr/th)
     html += "<tr>"
-    Object.keys(arrObj[0]).forEach(key => {html += "<th>" + key + "</th>"})
+    Object.keys(arrObj[0]).forEach(key => {html += '<th class="outputTableth">' + key + "</th>"})
     html += "</tr>"
     
     // Create contents of table (tr/td)
     arrObj.forEach(obj => {
         html += "<tr>";
-        Object.values(obj).forEach(val => {html += "<td>" + val + "</td>"})
+        Object.values(obj).forEach(val => {html += '<td class="outputTableth">' + val + "</td>"})
         html += "</tr>"
     })
 
@@ -45,6 +45,31 @@ const tableFromJson = function(arrObj) {
     html += "</table>"
     return html  
 }
+
+// A.3) Function to update options from a select based on the type of column in handsonTable
+// Pars: 
+    // selectID-> id from a specific select tag in index.html
+    // typeofColumn -> Type of column to extract information (numeric, factor or all)
+const updateSelecOptions = function(selectID, typeofColumn){
+    console.log("updating ID: " + selectID + " with options: " + typeofColumn)
+    // Get info from handsonTable
+    let hotDataArray = hot.getSourceDataArray();
+    let hotHeadersArray = hot.getColHeader();
+        // Prepare data for routine
+    let cleanHotData = cleanHandosontableSourceData(hotDataArray,hotHeadersArray)
+    let cleanHotDataColwise = columnWiseHandsontableCleanData(cleanHotData)
+    // Filter columns based on type and return an array of column names
+    let selectedCols = cleanHotDataColwise.map(col => col.colName)
+    if(typeofColumn !== "all"){
+        selectedCols = cleanHotDataColwise.filter(col => {
+        return col.colType === typeofColumn
+      }).map(col => col.colName)  
+    } 
+    // Empty all select options
+    let selectedIdNode = document.getElementById(selectID)
+    selectedIdNode.options.length = 0
+    selectedCols.map(item => new Option(item,item)).forEach(child => selectedIdNode.appendChild(child))
+    }
 
 // B) Event Listeners
 let outputDocumentID = document.getElementById("output")
@@ -63,9 +88,11 @@ document.getElementById("printDataButton").addEventListener("click",function(){
     // Prepare data to print
     let cleanHotData = cleanHandosontableSourceData(hotDataArray,hotHeadersArray)
     let cleanHotDataColwise = columnWiseHandsontableCleanData(cleanHotData)
+    console.log(cleanHotDataColwise)
     let p2 = document.createElement("p");
     p2.innerHTML =  tableFromJson(cleanHotDataColwise);
     outputDocumentID.appendChild(p2)
+    // Scroll to end of output region
     p2.scrollIntoView({behaviour:"smooth"});
 })
 
@@ -138,6 +165,9 @@ document.getElementById("computeKmeans").addEventListener("click",function(){
 })
 
 // C) Layout functinalities
+// Update options from selects that rely on specific column type
+document.getElementById("descriptiveStatsButton").addEventListener("click",
+    () => {updateSelecOptions("selectedColumnsDescStats","numeric")})
 // Popupu modal implementation
 // SEE https://medium.com/@GistCoding/simple-popup-modal-with-vanilla-javascript-a14515ec630b
 const modalTriggers = document.querySelectorAll('.popup-trigger')

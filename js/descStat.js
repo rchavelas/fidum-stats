@@ -28,7 +28,7 @@ function descriptiveStatistics(cleanHotDataColwise, selectedCols,selectedStats){
     let statsVals = cleanHotDataColwise
     .filter(col => selectedCols.includes(col.colName))
     .map(col => {
-        let statsObj = {colName: col.colName}
+        let statsObj = {"Variable": col.colName}
         // Compute selected statistics
         // n obs
         if(selectedStats.includes("n")){
@@ -40,19 +40,19 @@ function descriptiveStatistics(cleanHotDataColwise, selectedCols,selectedStats){
         if(selectedStats.includes("mean")){
             let colData = col.colArr;
             let mean = colData.reduce((acc,val)=>acc+val)/colData.length
-            statsObj.mean = roundFn(mean, defaultDecimalPlaces)
+            statsObj.Mean = roundFn(mean, defaultDecimalPlaces)
         }
         // variance (sample)
         if(selectedStats.includes("var")){
             let colData = col.colArr;
             let variance = varFn(colData)
-            statsObj.variance = roundFn(variance, defaultDecimalPlaces)
+            statsObj.Variance = roundFn(variance, defaultDecimalPlaces)
         }
         // standard deviation (sample)
         if(selectedStats.includes("sd")){
             let colData = col.colArr;
             let sd = Math.sqrt(varFn(colData))
-            statsObj.sd = roundFn(sd, defaultDecimalPlaces)
+            statsObj.Sd = roundFn(sd, defaultDecimalPlaces)
         }
         // Return array of stat values
         return statsObj 

@@ -6,7 +6,7 @@ const container = document.getElementById("spreadsheet");
 const settings = {
     contextMenu: true,
     startCols: 26,
-    startRows: 150,
+    startRows: 15000,
     colWidths: 75,
     height: "100%",
     width: "100%",
@@ -79,10 +79,18 @@ const columnWiseHandsontableCleanData = function(cleanHotData){
     let cleanHotDataHeaders = [...cleanHotData.headers];
     let cleanHotDataCol = [];
     for(let col = 0; col < cleanHotDataHeaders.length; col++){
+        // Get type of column
+        let colTypeNumeric = cleanHotDataColArr[col].every(element => !isNaN(element))
+        // if numeric column, force values to numeric
+        let colArrVals = cleanHotDataColArr[col]
+        if(colTypeNumeric){
+            colArrVals = colArrVals.map(val => Number(val))
+        }
         let colObj = {
             "colName": cleanHotDataHeaders[col],
-            "colType": undefined,
-            "colArr" : cleanHotDataColArr[col]
+            // Test if column type is not a number (clasify as: factor) or a number (classify as: number)
+            "colType": (colTypeNumeric) ? "numeric":"factor",
+            "colArr" : colArrVals
         };
         cleanHotDataCol.push(colObj)
     };
@@ -140,6 +148,7 @@ const testData3 = [[5.1, 3.5, 1.4, 0.2, 'setosa'],
 [4.3, 3, 1.1, 0.1, 'setosa'],
 [5.8, 4, 1.2, 0.2, 'setosa']];
 
+
 // Input data to hot
 const inputTestData = function(dataset){
     let testDataOutput = [...testData3]
@@ -150,8 +159,8 @@ const inputTestData = function(dataset){
     }
 }
 inputTestData(testData3)
-// updateHOTColHeaders("A","s_length")
-// updateHOTColHeaders("B","s_width")
-// updateHOTColHeaders("C","p_length")
-// updateHOTColHeaders("D","p_width")
-// updateHOTColHeaders("E","class")
+updateHOTColHeaders("A","s_length");
+updateHOTColHeaders("B","s_width");
+updateHOTColHeaders("C","p_length");
+updateHOTColHeaders("D","p_width");
+updateHOTColHeaders("E","class");

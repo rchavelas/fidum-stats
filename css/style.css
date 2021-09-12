@@ -160,14 +160,14 @@ fieldset input, fieldset select, fieldset button {
 }
 
 
-table, th, td {
+.outputTable, .outputTableth, .outputTabletd {
     border: solid 1px #ddd;
     border-collapse: collapse;
-    padding: 2px 3px;
+    padding: 2px 9px;
     text-align: center;
 }
 
-th {
+.outputTableth th{
     font-weight:bold;
 }
 
